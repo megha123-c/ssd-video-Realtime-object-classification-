@@ -1,1 +1,1 @@
-# ssd-video-Realtime-object-classification-
+# SSD-Video-real-time-object-detection

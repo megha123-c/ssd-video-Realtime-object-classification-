@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Upload Video</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <h1 class="project-name">Upload Video for Processing</h1>
+    <div class="white-box">
+        <div class="section">
+            <form id="uploadForm" enctype="multipart/form-data">
+                <input type="file" id="video" name="video" accept="video/*" required>
+                <button type="submit">Upload</button>
+            </form>
+            <div id="loading" style="display:none;">
+                <div class="spinner"></div>
+                <p>Processing your video, please wait...</p>
+            </div>
+            <video id="videoPlayer" controls style="display:none;"></video>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('uploadForm').onsubmit = async function(event) {
+            event.preventDefault();
+            const formData = new FormData();
+            formData.append('video', document.getElementById('video').files[0]);
+
+            // Show loading indicator
+            document.getElementById('loading').style.display = 'block';
+
+            try {
+                const response = await fetch('/upload', {
+                    method: 'POST',
+                    body: formData
+                });
+
+                const result = await response.json();
+                if (result.error) {
+                    alert(result.error);
+                } else {
+                    console.log('Video URL:', result.download_url); // Log the URL
+                    const videoPlayer = document.getElementById('videoPlayer');
+                    videoPlayer.src = `${window.location.origin}${result.download_url}`;
+                    videoPlayer.style.display = 'block';
+                    videoPlayer.load();
+                    videoPlayer.play();
+                }
+            } catch (error) {
+                alert('An error occurred while processing the video.');
+            } finally {
+                // Hide loading indicator
+                document.getElementById('loading').style.display = 'none';
+            }
+        };
+    </script>
+</body>
+</html>

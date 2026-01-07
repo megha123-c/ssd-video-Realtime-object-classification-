@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Video Upload</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+
+<body>
+    <h1 class="project-name">A Flask-Based Application for Efficient Video Analysis</h1>
+    
+    <div class="white-box">
+        <div class="section">
+            <h1>Upload Video for Processing</h1>
+            <a href="{{ url_for('upload') }}" class="button">Go to Upload Page</a>
+        </div>
+    </div>
+    <script>
+        const startButton = document.getElementById('start-camera');
+        const stopButton = document.getElementById('stop-camera');
+        const videoFeed = document.getElementById('video-feed');
+
+        startButton.addEventListener('click', function() {
+            videoFeed.src = '/video_feed';
+            videoFeed.style.display = 'block';
+            startButton.style.display = 'none';
+            stopButton.style.display = 'inline';
+        });
+
+        stopButton.addEventListener('click', function() {
+            videoFeed.src = '';
+            videoFeed.style.display = 'none';
+            startButton.style.display = 'inline';
+            stopButton.style.display = 'none';
+        });
+    </script>
+
+
+    <div class="white-box">
+     <div class="section">
+       <h1>Live Video Object Detection</h1>
+       <button id="start-camera">Start Camera</button>
+       <button id="stop-camera" style="display:none;">Stop Camera</button>
+      <div>
+      
+         <img id="video-feed" src="" alt="Video Feed" style="display:none;">
+      </div>
+     </div>
+    </div>
+    <script>
+        const startButton = document.getElementById('start-camera');
+        const stopButton = document.getElementById('stop-camera');
+        const videoFeed = document.getElementById('video-feed');
+
+        startButton.addEventListener('click', function() {
+            videoFeed.src = '/video_feed';
+            videoFeed.style.display = 'block';
+            startButton.style.display = 'none';
+            stopButton.style.display = 'inline';
+        });
+
+        stopButton.addEventListener('click', function() {
+            videoFeed.src = '';
+            videoFeed.style.display = 'none';
+            startButton.style.display = 'inline';
+            stopButton.style.display = 'none';
+        });
+    </script>
+
+
+</body>
+</html>
